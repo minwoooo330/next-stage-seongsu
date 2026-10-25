@@ -499,9 +499,7 @@ async function icon(name, hex, size = 256) {
     s.addImage({ path: path.join(PAINT, "qr_proto.png"), x: qx, y: y0, w: 1.45, h: 1.45, objectName: "proto-qr", altText: "프로토타입 주소 QR 코드" });
     T(s, [
       { text: "직접 눌러 보기", options: { fontSize: 13, bold: true, color: K.ink, breakLine: true } },
-      { text: "next-stage-seongsu\n.vercel.app", options: { fontSize: 11, color: st.text, bold: true, breakLine: true } },
-      { text: " ", options: { fontSize: 6, breakLine: true } },
-      { text: "로그인 없이\n바로 열린다", options: { fontSize: 11, color: K.sub } },
+      { text: "next-stage-seongsu\n.vercel.app", options: { fontSize: 11, color: st.text, bold: true } },
     ], { x: qx, y: y0 + 1.6, w: 1.5, h: 1.9, valign: "top", objectName: "proto-link" });
     source(s, "실제로 동작: CLIP 자재 분류(transformers.js, 브라우저 실행), 대시보드의 생활인구·점포 데이터  ·  시연용: 분할·크기 추정 애니메이션, 매칭 점수, 철거량 예측, 팝업·작가 데이터", 6.62);
     s.addNotes("운영사 등록부터 재료의 지도까지 다섯 화면을 시연한다. ③은 미리 계산한 값이 아니라 브라우저에서 CLIP 모델이 실제로 사진을 분류한 결과다.");
