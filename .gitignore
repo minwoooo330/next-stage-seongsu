@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.vercel/
+__pycache__/
+
+# 원자료는 download.py로 받는다
+analysis/data/
+
+# 생성물과 개인정보가 든 파일
+deck/paint/
+deck/photos/
+*.pptx
+*.pdf

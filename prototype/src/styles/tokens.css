@@ -1,0 +1,216 @@
+/*
+  다음무대 디자인 토큰
+  화면의 색, 글자, 간격, 모서리, 그림자, 움직임 값은 모두 여기서만 정한다.
+  다른 CSS 파일과 컴포넌트는 var(--dm-*)만 쓴다. 스킨을 바꿀 때는 이 파일만 고친다.
+  글자 대비는 흰 바탕 기준 4.5:1 이상을 지킨다(주석의 숫자).
+*/
+:root {
+  /* ---------- 기본 색 ---------- */
+  --dm-ink: #1e1c1a;            /* 본문 글자 · 흰 바탕 16.9 */
+  --dm-sub: #5b554e;            /* 보조 글자 · 흰 7.4 · 카드 6.4 */
+  --dm-surface: #ffffff;        /* 화면 바탕 */
+  --dm-card: #f2efea;           /* 회색 구역, 요약 블록 */
+  --dm-line: #ddd7cf;           /* 구분선, 입력 테두리 */
+  --dm-line-strong: #c9c1b6;    /* 눌렀을 때, 선택 테두리 */
+  --dm-backdrop: #e7e3dd;       /* 데스크톱에서 앱 바깥 바탕 */
+
+  /* 강조: 주 버튼, 선택 상태, 진행 표시에만 쓴다 */
+  --dm-accent: #c9471f;         /* 흰 글자 4.8 */
+  --dm-accent-pressed: #a93a18;
+  --dm-accent-text: #b03c17;    /* 글자로 쓰는 강조 · 흰 6.0 */
+  --dm-accent-soft: #fbe9e2;    /* 선택된 칩 바탕 */
+  --dm-accent-line: #efc3b3;
+  --dm-on-accent: #ffffff;
+
+  /* 재료 색 */
+  --dm-plywood: #b98b4e;        /* 그림 전용 · 글자에 쓰지 않음 */
+  --dm-plywood-light: #eadbc4;  /* 옅은 합판 바탕 · 잉크 글자 12.5 */
+  --dm-plywood-deep: #8a5f2c;   /* 흰 글자 5.6 */
+  --dm-plywood-edge: #9a7240;   /* 그림 전용 */
+  --dm-moss: #4f7a5a;           /* 흰 글자 4.9 */
+  --dm-moss-soft: #e3ece4;
+  --dm-slate: #2f4858;          /* 흰 글자 9.6 */
+  --dm-slate-soft: #e2e8ec;
+  --dm-steel: #3b3936;          /* 그림 전용(파이프) */
+  --dm-steel-light: #8c8780;    /* 그림 전용 */
+  --dm-acrylic: #cfe3ea;        /* 그림 전용 */
+  --dm-acrylic-edge: #9cc0cc;   /* 그림 전용 */
+  --dm-fabric: #d98d6f;         /* 그림 전용 */
+  --dm-fabric-light: #f1cdbd;   /* 그림 전용 */
+  --dm-lamp: #f2c879;           /* 그림 전용 */
+  --dm-steel-red: #a5402c;      /* 그림 전용(적색 각관) */
+  --dm-steel-red-deep: #7c2f21; /* 그림 전용 */
+  --dm-mdf: #c49a6c;            /* 그림 전용 */
+  --dm-mdf-light: #ddc09c;      /* 그림 전용 */
+  --dm-mdf-deep: #a37a4d;       /* 그림 전용 */
+
+  /* 깊이 추정 표시 (먼 곳 → 가까운 곳) */
+  --dm-depth-far: #2b3a8c;
+  --dm-depth-mid: #3aa38f;
+  --dm-depth-near: #f2c14e;
+
+  /* 재사용 등급 (배지 바탕, 흰 글자) */
+  --dm-grade-a: var(--dm-moss);
+  --dm-grade-b: var(--dm-slate);
+  --dm-grade-c: var(--dm-plywood-deep);
+  --dm-grade-d: var(--dm-sub);
+
+  /* 사진 위 인식 표시 */
+  --dm-detect-stroke: #ffffff;
+  --dm-detect-fill: rgba(255, 255, 255, 0.10);
+  --dm-detect-fill-active: rgba(201, 71, 31, 0.28);
+  --dm-detect-muted: rgba(255, 255, 255, 0.55);
+  --dm-detect-label-bg: rgba(30, 28, 26, 0.86);
+  --dm-detect-shadow: rgba(0, 0, 0, 0.55);
+  --dm-scrim: rgba(30, 28, 26, 0.45);
+
+  /* 상태 */
+  --dm-ok: #3f6b4a;             /* 흰 바탕 글자 6.0 */
+  --dm-warn: #8a4b08;           /* 흰 바탕 글자 6.4 */
+  --dm-error: #b4321f;          /* 흰 바탕 글자 5.4 */
+  --dm-error-soft: #fcece9;
+
+  /* 지도 (밝은 지도) */
+  --dm-map-bg: #f4f1ec;
+  --dm-map-block: #ebe6df;
+  --dm-map-road: #ffffff;
+  --dm-map-road-edge: #d8d1c7;
+  --dm-map-main-road: #fdfbf8;
+  --dm-map-park: #dbe6d6;
+  --dm-map-water: #d5e2e8;
+  --dm-map-subway: #3c9a5f;     /* 2호선 표시 (그림 전용) */
+  --dm-map-label: #5b554e;
+  --dm-map-label-strong: #1e1c1a;
+
+  /* 재료의 지도 (밤 화면) */
+  --dm-night-bg: #15130f;
+  --dm-night-surface: #1f1c18;
+  --dm-night-raise: #2a2621;
+  --dm-night-text: #f3eee6;     /* 바탕 16.1 */
+  --dm-night-sub: #a89f93;      /* 바탕 7.1 */
+  --dm-night-faint: #8f877b;    /* 바탕 5.2 · 작은 지도 이름 */
+  --dm-night-road: #2e2a25;
+  --dm-night-road-main: #3a352e;
+  --dm-night-park: #1b231c;
+  --dm-night-water: #141c22;
+  --dm-night-line: #34302a;
+  --dm-glow-1: #ff8a5b;         /* 합판 가벽 */
+  --dm-glow-2: #f2c879;         /* 비계 파이프 */
+  --dm-glow-3: #ff9ec4;         /* 현수막 원단 */
+  --dm-glow-4: #8cc8ff;         /* 아크릴 판 */
+  --dm-glow-5: #7fd1a8;         /* LED 투광등 */
+
+  /* 차트 (dataviz 검증기 통과: 밝기 띠, 채도, 색약 구분) */
+  --dm-chart-actual: #336fb0;   /* 실제 값 */
+  --dm-chart-forecast: var(--dm-accent); /* 예측 값 */
+  --dm-chart-fest: var(--dm-accent);     /* 축제 주말 */
+  --dm-chart-base: #336fb0;     /* 평소 주말 */
+  --dm-chart-grid: #e6e1da;
+  --dm-chart-1: #a8692a;        /* 목재 */
+  --dm-chart-2: #336fb0;        /* 금속 */
+  --dm-chart-3: #d0532a;        /* 패브릭·현수막 */
+  --dm-chart-4: #2a9d8f;        /* 아크릴 */
+  --dm-chart-5: #d9a300;        /* 조명 · 대비 낮음, 범례에 값 표기 */
+  --dm-chart-6: #5a8f3a;        /* 집기 */
+
+  /* ---------- 글자 ---------- */
+  --dm-font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --dm-font-num: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+  --dm-fs-2xs: 11px;
+  --dm-fs-xs: 12px;
+  --dm-fs-sm: 13px;
+  --dm-fs-base: 15px;
+  --dm-fs-md: 16px;
+  --dm-fs-lg: 18px;
+  --dm-fs-xl: 21px;
+  --dm-fs-2xl: 26px;
+  --dm-fs-3xl: 32px;
+  --dm-fs-display: 40px;
+  --dm-fw-regular: 400;
+  --dm-fw-medium: 500;
+  --dm-fw-semibold: 600;
+  --dm-fw-bold: 700;
+  --dm-fw-heavy: 800;
+  --dm-lh-tight: 1.25;
+  --dm-lh-snug: 1.4;
+  --dm-lh-normal: 1.55;
+  --dm-ls-tight: -0.02em;
+  --dm-ls-normal: -0.01em;
+  --dm-ls-wide: 0.04em;
+
+  /* ---------- 간격 ---------- */
+  --dm-space-0: 2px;
+  --dm-space-1: 4px;
+  --dm-space-2: 8px;
+  --dm-space-3: 12px;
+  --dm-space-4: 16px;
+  --dm-space-5: 20px;
+  --dm-space-6: 24px;
+  --dm-space-7: 32px;
+  --dm-space-8: 40px;
+  --dm-space-9: 56px;
+  --dm-gutter: 20px;
+  --dm-app-max: 430px;
+  --dm-header-h: 56px;
+  --dm-tourbar-h: 44px;
+  --dm-touch: 44px;
+  --dm-button-h: 52px;
+  --dm-choice-h: 56px;
+  --dm-input-h: 48px;
+  --dm-chip-h: 36px;
+  --dm-seg-h: 40px;
+  --dm-thumb: 64px;
+  --dm-badge: 22px;
+  --dm-badge-sm: 18px;
+  --dm-radio: 20px;
+  --dm-dot: 9px;
+  --dm-grip-w: 36px;
+  --dm-grip-h: 4px;
+  --dm-label-max: 220px;
+  --dm-timeline-date: 76px;
+  --dm-icon-lg: 32px;
+  --dm-icon-xl: 44px;
+  --dm-thumb-sm: 52px;
+  --dm-seal: 56px;
+  --dm-bar-h: 6px;
+  --dm-meter-h: 10px;
+  --dm-stack-h: 16px;
+  --dm-chart-line: 2px;
+  --dm-tip-h: 32px;
+  --dm-mat-indent: 36px;
+  --dm-route-label: 64px;
+  --dm-street-label: 64px;
+  --dm-found-bar: 64px;
+  --dm-sticky-top: 0px;          /* 시연 순서 표시가 켜지면 앱에서 덮어쓴다 */
+
+  /* ---------- 모서리 ---------- */
+  --dm-radius-xs: 4px;
+  --dm-radius-sm: 8px;
+  --dm-radius-md: 12px;
+  --dm-radius-lg: 16px;
+  --dm-radius-xl: 22px;
+  --dm-radius-pill: 999px;
+
+  /* ---------- 선, 그림자, 초점 ---------- */
+  --dm-border: 1px solid var(--dm-line);
+  --dm-shadow-app: 0 0 0 1px rgba(30, 28, 26, 0.04), 0 10px 40px rgba(30, 28, 26, 0.10);
+  --dm-shadow-sheet: 0 -8px 30px rgba(30, 28, 26, 0.16);
+  --dm-shadow-pop: 0 6px 20px rgba(30, 28, 26, 0.16);
+  --dm-focus: #1e6fd9;
+  --dm-focus-ring: 0 0 0 3px rgba(30, 111, 217, 0.35);
+  --dm-focus-night: #8cc8ff;
+
+  /* ---------- 움직임 ---------- */
+  --dm-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dm-dur-fast: 120ms;
+  --dm-dur: 220ms;
+  --dm-dur-slow: 480ms;
+  --dm-dur-draw: 1600ms;
+
+  /* ---------- 쌓임 순서 ---------- */
+  --dm-z-header: 20;
+  --dm-z-cta: 25;
+  --dm-z-sheet: 40;
+  --dm-z-toast: 50;
+}

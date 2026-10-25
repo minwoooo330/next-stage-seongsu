@@ -1,0 +1,441 @@
+/* =========================================================
+   재료의 지도 (밤 화면). 이 앱에서 유일하게 표현이 큰 화면
+   ========================================================= */
+@media (max-width: 479px) {
+  body.is-night {
+    background: var(--dm-night-bg);
+  }
+}
+
+.journey :focus-visible {
+  outline-color: var(--dm-focus-night);
+}
+
+.journey .demo-tag {
+  vertical-align: middle;
+  margin-left: var(--dm-space-1);
+}
+
+.jr-intro {
+  padding: var(--dm-space-2) var(--dm-gutter) var(--dm-space-4);
+}
+
+.jr-intro__from {
+  font-size: var(--dm-fs-xs);
+  font-weight: var(--dm-fw-semibold);
+  color: var(--dm-night-sub);
+  letter-spacing: var(--dm-ls-normal);
+}
+
+.jr-title {
+  margin-top: var(--dm-space-2);
+  font-size: var(--dm-fs-3xl);
+  font-weight: var(--dm-fw-heavy);
+  letter-spacing: var(--dm-ls-tight);
+  line-height: var(--dm-lh-tight);
+  color: var(--dm-night-text);
+}
+
+.jr-meta {
+  margin-top: var(--dm-space-1);
+  font-size: var(--dm-fs-sm);
+  color: var(--dm-night-sub);
+}
+
+.jr-map {
+  position: relative;
+  aspect-ratio: 400 / 520;
+  overflow: hidden;
+}
+
+.jr-map .smap {
+  width: 100%;
+  height: 100%;
+}
+
+/* 밤 지도 바탕 */
+.smap--night .smap__bg {
+  fill: var(--dm-night-bg);
+}
+.smap--night .smap__river {
+  fill: var(--dm-night-water);
+}
+.smap--night .smap__stream {
+  fill: none;
+  stroke: var(--dm-night-water);
+  stroke-width: 12;
+}
+.smap--night .smap__park {
+  fill: var(--dm-night-park);
+}
+.smap--night .smap__minor path {
+  fill: none;
+  stroke: var(--dm-night-road);
+  stroke-width: 1;
+}
+.smap--night .smap__named path {
+  fill: none;
+  stroke: var(--dm-night-road-main);
+  stroke-width: 1.6;
+}
+.smap--night .smap__main path {
+  fill: none;
+  stroke: var(--dm-night-road-main);
+  stroke-width: 3;
+}
+.smap--night .smap__subway {
+  fill: none;
+  stroke: var(--dm-night-line);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+.smap--night .smap__station circle {
+  fill: var(--dm-night-bg);
+  stroke: var(--dm-night-faint);
+  stroke-width: 1.5;
+}
+.smap--night .smap__station text,
+.smap--night .smap__label {
+  fill: var(--dm-night-faint);
+  font-size: var(--dm-fs-2xs);
+  font-weight: var(--dm-fw-medium);
+  paint-order: stroke;
+  stroke: var(--dm-night-bg);
+  stroke-width: 3;
+}
+
+/* 흩어진 다른 팝업 */
+.jr-dots circle {
+  fill: var(--dm-night-sub);
+  opacity: 0.25;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.jr-venue__core {
+  stop-color: var(--dm-glow-2);
+  stop-opacity: 0.35;
+}
+
+.jr-venue__edge {
+  stop-color: var(--dm-glow-2);
+  stop-opacity: 0;
+}
+
+.jr-venue {
+  animation: breathe 3.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes breathe {
+  50% {
+    transform: scale(1.18);
+    opacity: 0.7;
+  }
+}
+
+/* 경로 */
+.jr-glow-1 {
+  --jr-c: var(--dm-glow-1);
+}
+.jr-glow-2 {
+  --jr-c: var(--dm-glow-2);
+}
+.jr-glow-3 {
+  --jr-c: var(--dm-glow-3);
+}
+.jr-glow-4 {
+  --jr-c: var(--dm-glow-4);
+}
+.jr-glow-5 {
+  --jr-c: var(--dm-glow-5);
+}
+
+.jr-path {
+  transition: opacity var(--dm-dur-slow) var(--dm-ease);
+}
+
+.jr-path__glow,
+.jr-path__line {
+  fill: none;
+  stroke: var(--jr-c);
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: jr-draw var(--dm-dur-draw) var(--dm-ease) forwards;
+  animation-delay: var(--d);
+}
+
+.jr-path__glow {
+  stroke-width: 7;
+  opacity: 0.45;
+}
+
+.jr-path__line {
+  stroke-width: 1.6;
+}
+
+@keyframes jr-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.jr-path__origin {
+  fill: var(--dm-night-bg);
+  stroke: var(--jr-c);
+  stroke-width: 1.6;
+  opacity: 0;
+  animation: fadein var(--dm-dur) var(--dm-ease) forwards;
+  animation-delay: var(--d);
+}
+
+.jr-path__spark {
+  fill: var(--dm-night-text);
+  opacity: 0;
+  animation: fadein var(--dm-dur-slow) var(--dm-ease) forwards;
+  animation-delay: calc(var(--d) + var(--dm-dur-draw));
+  filter: drop-shadow(0 0 3px var(--jr-c));
+}
+
+@keyframes fadein {
+  to {
+    opacity: 1;
+  }
+}
+
+.jr-path__hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 18;
+  cursor: pointer;
+  pointer-events: stroke;
+  outline: none;
+}
+
+.jr-path__hit:focus-visible {
+  stroke: var(--dm-focus-night);
+  stroke-opacity: 0.25;
+}
+
+.jr-path.is-sel .jr-path__line {
+  stroke-width: 2.6;
+}
+
+.jr-path.is-sel .jr-path__glow {
+  stroke-width: 11;
+  opacity: 0.7;
+}
+
+.jr-map.has-sel .jr-path.is-dim {
+  opacity: 0.14;
+}
+
+.jr-map.has-sel .jr-path.is-dim .jr-path__spark {
+  display: none;
+}
+
+/* 거점 */
+.jr-hub circle,
+.jr-hub rect {
+  fill: var(--dm-night-bg);
+  stroke: var(--dm-night-text);
+  stroke-width: 1.6;
+}
+
+.jr-hub text {
+  fill: var(--dm-night-text);
+  font-size: var(--dm-fs-2xs);
+  font-weight: var(--dm-fw-semibold);
+  paint-order: stroke;
+  stroke: var(--dm-night-bg);
+  stroke-width: 3;
+}
+
+.jr-hub--venue rect {
+  fill: var(--dm-glow-2);
+  stroke: var(--dm-night-text);
+}
+
+.jr-hub--venue text {
+  font-size: var(--dm-fs-xs);
+  font-weight: var(--dm-fw-bold);
+}
+
+.jr-hub .jr-hub__sub {
+  font-size: var(--dm-fs-2xs);
+  font-weight: var(--dm-fw-medium);
+  fill: var(--dm-night-sub);
+}
+
+/* 지도 아래 */
+.jr-body {
+  color: var(--dm-night-text);
+}
+
+.jr-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--dm-space-2);
+  padding: var(--dm-space-4) 0;
+  border-bottom: 1px solid var(--dm-night-line);
+}
+
+.jr-stats dt {
+  font-size: var(--dm-fs-2xs);
+  color: var(--dm-night-sub);
+  white-space: nowrap;
+}
+
+.jr-stats dd {
+  margin-top: var(--dm-space-0);
+  font-size: var(--dm-fs-md);
+  font-weight: var(--dm-fw-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.jr-legend {
+  padding-top: var(--dm-space-2);
+}
+
+.jr-mat {
+  display: grid;
+  grid-template-columns: var(--dm-space-6) minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--dm-space-3);
+  width: 100%;
+  min-height: var(--dm-touch);
+  padding: var(--dm-space-1) var(--dm-space-2);
+  margin: 0 calc(var(--dm-space-2) * -1);
+  width: calc(100% + var(--dm-space-4));
+  border-radius: var(--dm-radius-sm);
+  text-align: left;
+  color: var(--dm-night-text);
+}
+
+.jr-mat.is-on {
+  background: var(--dm-night-raise);
+}
+
+.jr-mat__swatch {
+  display: inline-block;
+  width: var(--dm-space-6);
+  height: var(--dm-chart-line);
+  border-radius: var(--dm-radius-pill);
+  background: var(--jr-c);
+  box-shadow: 0 0 6px var(--jr-c);
+}
+
+.jr-mat__name {
+  font-weight: var(--dm-fw-semibold);
+}
+
+.jr-mat__from {
+  font-size: var(--dm-fs-xs);
+  color: var(--dm-night-sub);
+  white-space: nowrap;
+}
+
+.jr-mat__kg {
+  font-size: var(--dm-fs-xs);
+  color: var(--dm-night-sub);
+  font-variant-numeric: tabular-nums;
+  min-width: var(--dm-space-7);
+  text-align: right;
+}
+
+.jr-hint {
+  margin-top: var(--dm-space-3);
+  font-size: var(--dm-fs-sm);
+  color: var(--dm-night-sub);
+}
+
+.jr-story {
+  margin-top: var(--dm-space-4);
+  padding: var(--dm-space-4);
+  border-radius: var(--dm-radius-md);
+  background: var(--dm-night-surface);
+  animation: rise var(--dm-dur) var(--dm-ease);
+}
+
+.jr-story__part {
+  display: flex;
+  align-items: center;
+  gap: var(--dm-space-2);
+  font-weight: var(--dm-fw-bold);
+}
+
+.jr-steps {
+  margin-top: var(--dm-space-3);
+}
+
+.jr-steps li {
+  display: grid;
+  grid-template-columns: var(--dm-timeline-date) 1fr;
+  gap: var(--dm-space-3);
+  padding: var(--dm-space-2) 0;
+  border-top: 1px solid var(--dm-night-line);
+}
+
+.jr-steps__date {
+  font-size: var(--dm-fs-sm);
+  color: var(--dm-night-sub);
+  font-variant-numeric: tabular-nums;
+}
+
+.jr-steps__body {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--dm-fs-sm);
+}
+
+.jr-steps__body b {
+  font-weight: var(--dm-fw-semibold);
+}
+
+.jr-steps__body span {
+  color: var(--dm-night-sub);
+  line-height: var(--dm-lh-snug);
+}
+
+.jr-story__km {
+  margin-top: var(--dm-space-2);
+  font-size: var(--dm-fs-xs);
+  color: var(--dm-night-sub);
+}
+
+.jr-statement {
+  margin-top: var(--dm-space-6);
+  padding-top: var(--dm-space-5);
+  border-top: 1px solid var(--dm-night-line);
+  font-size: var(--dm-fs-base);
+  line-height: var(--dm-lh-normal);
+}
+
+.jr-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--dm-space-2) var(--dm-space-4);
+  margin-top: var(--dm-space-4);
+  font-size: var(--dm-fs-sm);
+}
+
+.jr-facts dt {
+  color: var(--dm-night-sub);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jr-path__glow,
+  .jr-path__line {
+    stroke-dashoffset: 0;
+  }
+  .jr-path__spark {
+    display: none;
+  }
+}
